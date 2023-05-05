@@ -3,6 +3,8 @@ package com.demo;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+import java.util.Map;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -10,7 +12,7 @@ import java.util.stream.IntStream;
 
 public class NumbersTest {
     @Test
-    public static void  sumOfEvensTest(){
+    public void  sumOfEvensTest(){
         final IntPredicate evens = i -> i % 2 == 0;
         final IntPredicate odd = evens.negate();
 
@@ -21,6 +23,12 @@ public class NumbersTest {
         Assert.assertEquals(30, evenSum);
         Assert.assertEquals(25, oddSum);
 
+    }
+    @Test
+    public void partionByTest(){
+        Map<Boolean, List<Integer>> evensAndOdds = IntStream.rangeClosed(0,10).boxed().collect(Collectors.partitioningBy(i -> i % 2 == 0));
+        Assert.assertEquals(evensAndOdds.get(true).size(), 6);
+        Assert.assertEquals(evensAndOdds.get(false).size(), 5);
     }
 
 }
